@@ -1,8 +1,14 @@
 #!/usr/bin/env bash
-# Displays "To infinity and beyond" indefinitely
+# prints the message infinity and beyond for
+# eternity unless it is killed, not so ethernal after all :)
 
-trap "echo 'I am invincible!!!'" SIGTERM
-while true; do
-      echo "To infinity and beyond"
-      sleep 2
+# Handle SIGTERM
+trap "echo 'I am invincible!!!'" 15
+
+
+# print the message forever
+while true;
+do
+	echo "To infinity and beyond";
+	sleep 2
 done
