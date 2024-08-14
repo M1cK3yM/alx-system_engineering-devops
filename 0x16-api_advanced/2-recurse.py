@@ -18,12 +18,11 @@ def recurse(subreddit, hot_list=[], after=None):
 
     if response.status_code != 200:
         return None
-    
+
     data = response.json().get("data", {})
     hot_list.extend([child.get("data").get("title") for child in data.get("children", [])])
-    
+
     after = data.get("after")
     if after is not None:
         return recurse(subreddit, hot_list, after)
     return hot_list
-

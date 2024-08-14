@@ -1,6 +1,7 @@
 #!/usr/bin/python3
-"""Function to display the top 10 hot posts from a specified Reddit subreddit."""
+"""Function to display the top 10 hot posts from a Reddit subreddit."""
 import requests
+
 
 def top_ten(subreddit):
     """Print the titles of the top 10 hot posts from a specified subreddit."""
@@ -17,5 +18,5 @@ def top_ten(subreddit):
         print("None")
         return
     posts_data = response.json().get("data")
-    [print(post.get("data").get("title")) for post in posts_data.get("children")]
-
+    [print(post.get("data").get("title")) \
+        for post in posts_data.get("children")]
