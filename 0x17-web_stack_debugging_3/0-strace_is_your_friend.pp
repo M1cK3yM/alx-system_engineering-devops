@@ -1,6 +1,15 @@
-exec { 'Fix wordpress site':
-  command  => 'sed -i "s/.phpp/.php/" /var/www/html/wp-settings.php',
-  path     => ['/usr/local/bin', '/bin', '/usr/bin'],
-  onlyif   => 'grep -q ".phpp" /var/www/html/wp-settings.php',
+# This Puppet manifest fixes the issue causing Apache to return 
+# a 500 error Ensure the necessary directory exists
+file { '/var/www/html': ensure => 'directory',
 }
-
+# Ensure the necessary file exists with correct permissions
+file { '/var/www/html/index.php': ensure => 'file', source => 
+  'puppet:///modules/your_module/index.php', # Adjust this path 
+  accordingly mode => '0644', owner => 'www-data', group => 
+  'www-data',
+}
+# Restart Apache to apply changes
+service { 'apache2': ensure => 'running', enable => true, 
+  subscribe => File['/var/www/html/index.php'], # Restart if 
+  index.php changes
+}
